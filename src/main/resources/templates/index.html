@@ -1,18 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        p{
-            font-size: 25px;
-            font-weight: 600;
-        }
-    </style>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <title>心晴</title>
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="lib/bootstrap-4.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/font-awesome.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <!-- siimple style -->
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
+
 <body>
-    <p>你好“心晴”</p>
+    <!-- clouds -->
+    <div class="cloud floating">
+        <img src="assets/img/cloud.png" alt="Scoop Themes">
+    </div>
+
+    <div class="cloud pos1 fliped floating">
+        <img src="assets/img/cloud.png" alt="Scoop Themes">
+    </div>
+
+    <div class="cloud pos2 floating">
+        <img src="assets/img/cloud.png" alt="Scoop Themes">
+    </div>
+
+    <div class="cloud pos3 fliped floating">
+        <img src="assets/img/cloud.png" alt="Scoop Themes">
+    </div>
+
+    <!-- main -->
+    <div id="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <img src="assets/img/logo.png" alt="Scoop Themes Logo">
+                    <br/>
+                    <br/>
+                    <h2 class="subtitle">请输入您的详细信息</h2>
+                    <br/>
+                    <div class="form-panel form-row">
+                        <!-- 注册 -->
+                        <div class="col-8 sign-in">
+                            <h2>创建一个账号</h2>
+                            <form role="form">
+                                <div id="form-sign-in">
+                                    <label class="title" style="margin-right:300px">昵称</label>
+                                    <input type="text" class="form-control noBlue" placeholder="请输入您的昵称"/>
+                                    <label class="title" style="margin-right:300px">邮箱</label>
+                                    <input type="email" class="form-control noBlue" placeholder="请输入您的邮箱"/>
+                                    <label class="title" style="margin-right:300px">密码</label>
+                                    <input type="password" class="form-control noBlue" placeholder="请输入您的密码"/>
+                                    <input type="password" class="form-control noBlue" placeholder="请确认您的密码"/>
+                                </div>
+                                    <input type="submit" name="subscribe" value="Sign in" id="signIn" class="btn btn-theme noBlue">
+                            </form>
+                        </div>
+                        <!-- 登录 -->
+                        <div class="col-4 btnLogin">
+                            <img src="assets/img/milk_cake.png" class="rigth-img">
+                            <span style="font-weight:400;cursor: pointer;" id="changePanel">Click me</span>
+                        </div>
+                        <div class="col-4 hidden login">
+                            <h2>登录</h2>
+                            <form role="form" id="form-login">
+                                <div>
+                                    <div class="title" style="margin-right:210px">邮箱</div>
+                                    <input type="email" class="form-control noBlue" placeholder="请输入您的邮箱"/>
+                                    <label class="title" style="margin-right:210px">密码</label>
+                                    <input type="password" class="form-control noBlue" placeholder="请输入您的密码"/>
+                                </div>
+                                    <input type="submit" value="Sign up" id="signUp" class="btn btn-theme noBlue">
+                                    <a href="home.html">进入主页</a>
+                            </form>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
+    <script src="http://downloads.mailchimp.com/js/jquery.form-n-validate.js"></script>
+    <script src="assets/js/login.js"></script>
+    <!-- <script>
+        
+$(document).ready( function () {
+    $('#wrapper').height($(document).height());
+    // I only have one form on the page but you can be more specific if need be.
+    var $form = $('form');
+
+    if ( $form.length > 0 ) {
+        $('form input[type="submit"]').bind('click', function ( event ) {
+            if ( event ) event.preventDefault();
+            // validate_input() is a validation function I wrote, you'll have to substitute this with your own.
+            if ( $form.validate() ) { register($form); }
+        });
+    }
+});
+
+function appendResult(userText , className, iconClass){
+  var resultHTML = "<div class='stretchLeft result "+ className + "'>" + userText + " <span class='fa fa-" + iconClass + "'></span>" + "</div>";
+  $('body').append(resultHTML);
+  $('.result').delay(10000).fadeOut('1000');
+}
+
+
+function register($form) {
+    $.ajax({
+        type: $form.attr('method'),
+        url: $form.attr('action'),
+        data: $form.serialize(),
+        cache       : false,
+        dataType    : 'json',
+        contentType: "application/json; charset=utf-8",
+        error       : function(err) { alert("Could not connect to the registration server. Please try again later."); },
+        success     : function(data) {
+            if (data.result != "success") {
+                appendResult('Wrong Email Or You Are Already Registered, Try Again', 'error', 'exclamation');
+            } else {
+                // It worked, carry on...
+                appendResult('Successful, Check Your Email For Confirmation ', 'success', 'check');
+            }
+        }
+    });
+}
+    </script> -->
+
 </body>
+
 </html>
