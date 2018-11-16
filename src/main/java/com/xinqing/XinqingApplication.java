@@ -12,6 +12,10 @@ public class XinqingApplication {
     public String index(){
         return "index";
     }
+    @GetMapping(path="/home")
+    public String home(){
+        return "home";
+    }
     public static void main(String[] args) {
         SpringApplication.run(XinqingApplication.class, args);
     }

@@ -1,9 +1,5 @@
 package com.xinqing.entities;
 
-//import com.xinqing.entities.Message;
-
-import javax.persistence.Entity;
-
 /**
  * 返回错误信息类
  */

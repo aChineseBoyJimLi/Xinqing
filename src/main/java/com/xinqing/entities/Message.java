@@ -1,8 +1,5 @@
 package com.xinqing.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 
 /**
  * 返回消息
