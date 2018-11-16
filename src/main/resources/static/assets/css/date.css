@@ -46,7 +46,7 @@ address,cite,code,em,th,i{font-weight:normal; font-style:normal;}
 .f-rili-table{width: 100%;}
 .f-rili-th{float: left;width: 14.25%;text-align: center;line-height: 46px;height: 46px; background-color: #F9EADE;color: #333;}
 .f-td{border-bottom: 1px dashed #ccc;float: left;width: 14.25%;text-align: center;height:46px;line-height: 46px;position: relative;}
-.f-yuan{position: absolute;width: 25px;height: 25px;top: 10px;left: 50%;margin-left: 10px; background: url(../img/smile.svg) no-repeat center;}
+.f-yuan{position: absolute;width: 25px;height: 25px;top: 10px;left: 50%;margin-left: 10px;}
 /* .f-table-msg{position: absolute;z-index: 2;top: 34px;left:50%;margin-left: -120px; width: 280px;background: url(../img/bg-msg.png) no-repeat bottom;line-height: 55px;height: 46px;text-align: center;display: none;color: #666;} */
 
 

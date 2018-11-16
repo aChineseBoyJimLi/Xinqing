@@ -66,7 +66,7 @@ $(document).ready(function(){
                     for(i=0;i<daysCount;i++){
                          //这里为一个单元格，添加内容在此
                         mystr += "<div class='f-td f-number'><span class='f-day'>"+(i+1)+"</span>"
-                                +"<div class='f-yuan'></div>"
+                                +"<img class='f-yuan' src='assets/img/faceEmotion/happy.png'>"
                                 // +"<div class='f-table-msg'>回款中<span class='major'>1</span>笔。回款本息;<span class='major'>1，000，000</span>元</div>"//这里加判断
                                 +"</div>"; 
                     }

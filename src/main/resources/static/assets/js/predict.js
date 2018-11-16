@@ -13,10 +13,30 @@ var probindex = []  //概率结果顺序
 var select = 0      //当前采用的表情标签值
 var labels = ['恶心的', '开心的', '生气的', '一般般', '惊讶的', '悲伤的', '害怕的']
 var flag = false;
+var result;
+var userinfo = sessionStorage.getItem("userinfo");
 // var modelrunning = true
 var textarea_activated = false
 /*加载模型*/
 window.onload = function(){
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8080/Xinqing/read",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+        },
+        "processData": false,
+        "data": "{\n\t\"id\":\"{id}\",\n\t\"password\":\"{password}\"\n}".format(JSON.parse(userinfo))
+      }
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        RenderNotesList(response.result);
+      });
+
+    /**********************************/
     $('body,html').animate({'scrollTop':'fast'});
     model = new KerasJS.Model({
         filepath: modelURL,
@@ -46,32 +66,14 @@ window.onload = function(){
         if(textarea_activated==true){
             var str = $('textarea').val();
             getPrediction(str);
-            var result = sessionStorage.getItem("result");
             selectPicture(result);
         }
     },1000);
     })
-    
 
     
-    // //启用定时器
-    // setTimeout(function(){
-    //     $('#load').animate({opacity:'0'},'fast');
-    //     $('.loading-title').animate({opacity:'0'},'fast');
-    //     setTimeout(function(){
-    //         $('#load').hide();
-    //         $('.loading-title').hide();
-    //     },1000);
-    // },2000);
-
-    // setTimeout(function(){
-    //     $('.masthead-img').show(300);
-    //     $('.masthead-title').show();
-    //     $('#indexTwo').show();
-    // },3000);
 };
 
-/*设置定时器*/
 $('textarea').click(function(){
     textarea_activated = true
 })
@@ -88,24 +90,53 @@ $('*').on("keyup","textarea",function(){
 var result_Panel = $('#result');
 result_Panel.hide();
 $('#ready').click(function(){
-    window.clearInterval(window.timer);
+    // window.clearInterval(window.timer);
     // modelrunning = false
-    textarea_activated = false
     var str =  $('#text_input').val();
-    getPrediction(str);
-    var result = sessionStorage.getItem("result");
-    console.log("session:"+result);
-    selectPicture(result);
-    $('textarea').blur();
-    $('textarea').attr('disabled','true');
-    $('#result p span').text(result);
-    result_Panel.show(100);
-    $(this).hide(100);
+    if(str!=""){
+        getPrediction(str);
+        textarea_activated = false;
+        $('#result p span').text(result);
+        selectPicture(result);
+        $('textarea').blur();
+        $('textarea').attr('disabled','true');
+        result_Panel.show(100);
+        $(this).hide(100);
+    }else{
+        alert("请随便写点什么");
+    }
 })
 
 /*预测面板事件*/
 $('#ok').click(function(){
-    // modelrunning = true
+    console.log(userinfo);
+    var note = $('textarea').val();
+    var date = getNowFormatDate();
+    var input = {
+        content:note,
+        time:date,
+        user:userinfo,
+        mood:probindex[select]
+    };
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8080/Xinqing/write",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "cache-control": "no-cache",
+        },
+        "processData": false,
+        "data": "{\n\t\"title\":\"wegame\",\n\t\"content\":\"{content}\",\n\t\"time\":\"{time}\",\n\t\"user\":{user},\n\t\"mood\":\"{mood}\",\n\t\"image\":\"NA\"\n}".format(input)
+      }
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        RenderNotesList(response.result);
+      });
+
+    select = 0
     textarea_activated = true
     $('#ready').show(100);
     result_Panel.hide(100);
@@ -119,8 +150,7 @@ $('#try-again').click(function(){
         alert("你在拿我寻开心呀？")
         select = 0
     }
-    var result = labels[probindex[select]];
-    // sessionStorage.setItem("result",result);
+    result = labels[probindex[select]];
     selectPicture(result);
     $('#result p span').text(result);
 })
@@ -167,6 +197,24 @@ function selectPicture(result){
     $('#result p span').text(result);
 }
 
+//获取当前时间 以yyyy-MM-dd HH:MM:SS的格式返回数据
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+    return currentdate;
+}
 
 function getPrediction(inputtext) {
     var input = new Float32Array(MAXLEN)
@@ -201,9 +249,8 @@ function getPrediction(inputtext) {
                 for(let i = 0;i<probresult.length;i++){
                     probindex[i] = new Float32Array(outputData.output).indexOf(probresult[probresult.length-i-1])
                 }
-                var result = labels[probindex[select]];
-                sessionStorage.setItem("result",result);
-                console.log(result);
+                result = labels[probindex[select]];
+                console.log("pre:"+result);
             })
         },
         // 若调用翻译失败
@@ -213,5 +260,31 @@ function getPrediction(inputtext) {
           alert(textStatus);
         }
     });
+}
 
+String.prototype.format = function(args) {
+    console.log("yes");
+    var result = this;
+    if (arguments.length > 0) {
+        console.log("1");
+        if (arguments.length == 1 && typeof (args) == "object") {
+            console.log("2");
+            for (var key in args) {
+                if(args[key]!=undefined){
+                    var reg = new RegExp("({" + key + "})", "g");
+                    result = result.replace(reg, args[key]);
+                }
+            }
+        }
+        else {
+            console.log("3");
+            for (var i = 0; i < arguments.length; i++) {
+                if (arguments[i] != undefined) {
+                    var reg= new RegExp("({)" + i + "(})", "g");
+                    result = result.replace(reg, arguments[i]);
+                }
+            }
+        }
+    }
+    return result;
 }

@@ -399,7 +399,7 @@ header.masthead {
 
 .select-panel{
   height: 100%;
-  background-color: #50aca1;
+  background-color: rgb(80, 172, 161);
   border-left: 4px solid #fff;
   box-shadow: 2px 0 6px rgba(34, 34, 34, 0.6);
 }
@@ -435,7 +435,25 @@ header.masthead {
 
 
 #Note{
+  overflow-y: scroll !important;
   padding: 10px;
+}
+
+#Note::-webkit-scrollbar{
+  /*滚动条整体样式*/
+  width: 10px;     /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+
+#Note::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  background: rgba(80, 172, 161,0.8);
+}
+#Note::-webkit-scrollbar-track {/*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  background: #EDEDED;
 }
 
 /*每日随笔样式*/
@@ -476,7 +494,7 @@ header.masthead {
 }
 
 #line-map{
-  width: 100%;
+  min-width: 100%;
   height: 50vh;
 }
 /*第二个模块结束*/
