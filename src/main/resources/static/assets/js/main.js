@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $(document.body).css({
+    $("body").css({
         "overflow-x":"hidden",
         "overflow-y":"hidden"
       });
@@ -91,7 +91,7 @@ function getLine(){
             trigger: 'axis'
         },
         legend: {
-            data:['好心情','一般般吧','不高兴','很不高兴!','找死吗?!']
+            data:['恶心的', '开心的', '生气的', '一般般', '惊讶的', '悲伤的', '害怕的']
         },
         grid: {
             left: '3%',
@@ -114,38 +114,121 @@ function getLine(){
         },
         series: [
             {
-                name:'好心情',
+                name:'恶心的',
                 type:'line',
                 // stack: '总量',
-                data:[8, 1, 10, 18, 5, 6, 1]
+                data:[8, 1, 10, 18, 5, 6, 1, 5]
             },
             {
-                name:'一般般吧',
+                name:'开心的',
                 type:'line',
                 // stack: '总量',
-                data:[2, 4, 5, 7, 11, 2, 0]
+                data:[2, 4, 5, 7, 11, 2, 0, 0]
             },
             {
-                name:'不高兴',
+                name:'生气的',
                 type:'line',
-                // stack: '总量',
-                data:[2, 3, 5, 0, 1, 4, 0]
+                stack: '总量',
+                data:[2, 3, 5, 0, 1, 4, 0, 3]
             },
             {
-                name:'很不高兴!',
+                name:'一般般',
                 type:'line',
                 // stack: '总量',
-                data:[1, 0, 0, 2, 1, 3, 0]
+                data:[1, 0, 0, 2, 1, 3, 0, 2]
             },
             {
-                name:'找死吗?!',
+                name:'惊讶的',
                 type:'line',
                 // stack: '总量',
-                data:[0, 0, 1, 0, 0, 1, 0]
+                data:[0, 4, 1, 2, 0, 1, 2, 1]
+            },        
+            {
+                name:'悲伤的',
+                type:'line',
+                // stack: '总量',
+                data:[0, 1, 1, 6, 0, 1, 3, 1]
+            },
+            {
+                name:'害怕的',
+                type:'line',
+                // stack: '总量',
+                data:[1, 0, 1, 4, 0, 1, 0, 4]
             }
+    
         ]
     };
         var line = document.getElementById('line-map');
         var lineMap = echarts.init(line);
         lineMap.setOption(option);
+}
+
+function RenderNotesList(Notes){
+    $("#Note").empty();
+    Notes.forEach(element => {
+       var str = '<div class="card" id="noteOne" v-for="note in result">'+
+        '<div class="title">'+'<span class="timestamp">'+element.time+'</span></div>'+
+        '<div class="Notecontent">'+'<span class="message">'+element.content+'</span>'+
+        '&nbsp;&nbsp;<img src="'+SwitchMoodImg(element.mood)+'" style="margin:3px auto;display: inline;max-width: 30px;"></div></div>';
+        $('#Note').append(str);
+    });  
+}
+
+function SwitchMoodImg(mood){
+    var temp;
+    switch(mood){
+        case "DISGUST":{
+            temp = "disappointed.png";
+            break;
+        }
+        case "JOY":{
+            temp = "happy.png";
+            break;
+        }
+        case "ANGER":{
+            temp = "angry.png";
+            break;
+        }
+        case "NOEMO":{
+            temp = "normal.png";
+            break;
+        }
+        case "SURPRISE":{
+            temp = "surprise.png";
+            break;
+        }
+        case "SADNESS":{
+            temp = "sad.png";
+            break;
+        }
+        case "FEAR":{
+            temp = "fear.png";
+            break;
+        }
+        
+    }
+    return "assets/img/faceEmotion/"+temp;
+}
+
+String.prototype.format = function(args) {
+    var result = this;
+    if (arguments.length > 0) {
+        if (arguments.length == 1 && typeof (args) == "object") {
+            for (var key in args) {
+                if(args[key]!=undefined){
+                    var reg = new RegExp("({" + key + "})", "g");
+                    result = result.replace(reg, args[key]);
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < arguments.length; i++) {
+                if (arguments[i] != undefined) {
+                    var reg= new RegExp("({)" + i + "(})", "g");
+                    result = result.replace(reg, arguments[i]);
+                }
+            }
+        }
+    }
+    return result;
 }

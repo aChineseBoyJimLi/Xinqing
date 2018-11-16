@@ -50,14 +50,14 @@
                             <form role="form">
                                 <div id="form-sign-in">
                                     <label class="title" style="margin-right:300px">昵称</label>
-                                    <input type="text" class="form-control noBlue" placeholder="请输入您的昵称"/>
+                                    <input type="text" class="form-control noBlue" placeholder="请输入您的昵称" id="Name"/>
                                     <label class="title" style="margin-right:300px">邮箱</label>
-                                    <input type="email" class="form-control noBlue" placeholder="请输入您的邮箱"/>
+                                    <input type="email" class="form-control noBlue" placeholder="请输入您的邮箱" id="Email"/>
                                     <label class="title" style="margin-right:300px">密码</label>
-                                    <input type="password" class="form-control noBlue" placeholder="请输入您的密码"/>
-                                    <input type="password" class="form-control noBlue" placeholder="请确认您的密码"/>
+                                    <input type="password" class="form-control noBlue" placeholder="请输入您的密码" id="Password"/>
+                                    <input type="password" class="form-control noBlue" placeholder="请确认您的密码" id="EnsurePassword"/>
                                 </div>
-                                    <input type="submit" name="subscribe" value="Sign in" id="signIn" class="btn btn-theme noBlue">
+                                    <button type="button" id="signIn" class="btn btn-theme noBlue">注册</button>
                             </form>
                         </div>
                         <!-- 登录 -->
@@ -70,18 +70,38 @@
                             <form role="form" id="form-login">
                                 <div>
                                     <div class="title" style="margin-right:210px">邮箱</div>
-                                    <input type="email" class="form-control noBlue" placeholder="请输入您的邮箱"/>
+                                    <input type="email" class="form-control noBlue" placeholder="请输入您的邮箱" id="LoginEmail"/>
                                     <label class="title" style="margin-right:210px">密码</label>
-                                    <input type="password" class="form-control noBlue" placeholder="请输入您的密码"/>
+                                    <input type="password" class="form-control noBlue" placeholder="请输入您的密码" id="LoginPassword"/>
                                 </div>
-                                    <input type="submit" value="Sign up" id="signUp" class="btn btn-theme noBlue">
-                                    <a href="home.html">进入主页</a>
+                                    <button type="button" id="signUp" class="btn btn-theme noBlue">登录</button>
                             </form>
                         </div>
                     </div>
                     <br/>
                 </div>
             </div>
+            <!-- Modal -->
+            <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                            <div class="modal-body">
+                                你的邮箱不正确
+                            </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </div>
+                </div>
+            </div> -->
+
         </div>
     </div>
 
