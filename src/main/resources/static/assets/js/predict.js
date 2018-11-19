@@ -5,8 +5,8 @@ const INDEX_FROM = 3
 var wordDict = {}
 var dataReady = false
 var currEmotion = -1
-var wordIndexURL = 'https://raw.githubusercontent.com/WenjieOoo/Sentiment-Analyze-Model-Data/master/imdb_dataset_word_index_top20000.json'      
-var modelURL = 'https://raw.githubusercontent.com/WenjieOoo/Sentiment-Analyze-Model-Data/master/Sentiment_Analyze_Model_1_8.bin'
+var wordIndexURL = 'model/word_index.json'
+var modelURL = 'model/Sentiment_Analyze_Model_1_8.bin'
 var baiduTranslatorURL = 'https://api.fanyi.baidu.com/api/trans/vip/translate?'
 var model;
 var probindex = []  //概率结果顺序
