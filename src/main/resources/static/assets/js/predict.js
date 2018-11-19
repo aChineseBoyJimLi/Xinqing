@@ -19,6 +19,7 @@ var userinfo = sessionStorage.getItem("userinfo");
 var textarea_activated = false
 /*加载模型*/
 window.onload = function(){
+    console.log(userinfo);
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -70,8 +71,6 @@ window.onload = function(){
         }
     },1000);
     })
-
-    
 };
 
 $('textarea').click(function(){
@@ -263,12 +262,9 @@ function getPrediction(inputtext) {
 }
 
 String.prototype.format = function(args) {
-    console.log("yes");
     var result = this;
     if (arguments.length > 0) {
-        console.log("1");
         if (arguments.length == 1 && typeof (args) == "object") {
-            console.log("2");
             for (var key in args) {
                 if(args[key]!=undefined){
                     var reg = new RegExp("({" + key + "})", "g");
@@ -277,7 +273,6 @@ String.prototype.format = function(args) {
             }
         }
         else {
-            console.log("3");
             for (var i = 0; i < arguments.length; i++) {
                 if (arguments[i] != undefined) {
                     var reg= new RegExp("({)" + i + "(})", "g");

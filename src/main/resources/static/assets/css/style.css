@@ -138,6 +138,16 @@ form{
 .title{
   font-weight: 500;
   font-size: 17px;
+  position: relative;
+}
+
+.title span{
+  position: absolute;
+  left:50px;bottom:0;
+  font-size: 10px;
+  color:rgb(238, 61, 61);
+  width:200px;
+  text-align: left;
 }
 
 .form-control{
@@ -157,6 +167,10 @@ form{
 
 #form-sign-in .form-control{
   width: 350px;
+}
+
+.form-control-error{
+  border-bottom: rgb(238, 61, 61) solid 1px;
 }
 
 .noBlue:focus{

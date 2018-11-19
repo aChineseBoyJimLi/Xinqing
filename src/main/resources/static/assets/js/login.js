@@ -14,6 +14,7 @@ $(document).ready(function(){
         });
         $('.login').removeClass('hidden');       
         flag = false;
+        $("#changePanel").text("点击注册")
     }else{
         signIn.show(200);
         panel.removeClass('col-8');
@@ -24,6 +25,7 @@ $(document).ready(function(){
         });
         $('.login').addClass('hidden');
         flag = true;
+        $("#changePanel").text("点击登录")
     }
     });
 
@@ -34,8 +36,13 @@ $(document).ready(function(){
         var ensurePassword = $('#EnsurePassword').val();
 
         if(name!=""&&email!=""&&password!=""&&ensurePassword!=""){
+            $("#form-sign-in .title span").text("");
+            $("#form-sign-in .form-control").removeClass("form-control-error");
             if(ensurePassword!=password){
-                alert("两次密码不一致，请重新输入");
+                // 两次密码不一致，请重新输入
+                $("#form-sign-in .title #pwd-error").text("两次密码不一致，请重新输入");
+                $("#form-sign-in #Password").addClass("form-control-error");
+                $("#form-sign-in #EnsurePassword").addClass("form-control-error");
             }else{
                 var input = {
                     name:name,
@@ -58,7 +65,9 @@ $(document).ready(function(){
                   
                   $.ajax(settings).done(function (response) {
                     if(response.result==null){
-                        alert("此账号已注册");
+                        //此账户已注册
+                        $("#form-sign-in .title #email-error").text("此账号已注册");
+                        $("#form-sign-in #Email").addClass("form-control-error");
                     }else{
                         var message = confirm("注册成功!");
                         if(message==true){
@@ -74,7 +83,22 @@ $(document).ready(function(){
                     });
             }
         }else{
-            alert("请补全输入")
+            $("#form-sign-in .title span").text("");
+            $("#form-sign-in .form-control").removeClass("form-control-error");
+            // 存在空表单
+            if(name == ""){
+                $("#form-sign-in .title #name-error").text("请输入用户名");
+                $("#form-sign-in #Name").addClass("form-control-error");
+            }
+            if(email == ""){
+                $("#form-sign-in .title #email-error").text("请输入用户名");
+                $("#form-sign-in #Email").addClass("form-control-error");
+            }
+            if(password == "" || ensurePassword == ""){
+                $("#form-sign-in .title #pwd-error").text("请输入密码");
+                $("#form-sign-in #Password").addClass("form-control-error");
+                $("#form-sign-in #EnsurePassword").addClass("form-control-error");
+            }
         }
     });
 
@@ -82,6 +106,8 @@ $(document).ready(function(){
         var email = $('#LoginEmail').val();
         var password = $('#LoginPassword').val();
         if(email!=""&&password!=""){
+                $("#form-login .title span").text("");
+                $("#form-login .form-control").removeClass("form-control-error");
                 var input = {
                     password:password,
                     email:email,
@@ -103,10 +129,17 @@ $(document).ready(function(){
                   $.ajax(settings).done(function (response) {
                     console.log(response);
                     if(response.result==null){
-                        alert(response.error);
+                        if(response.code == "NO_RECORDS"){
+                            // 账号未注册
+                            $("#form-login .title #email-login-error").text("此账户还未注册");
+                            $("#form-login #LoginEmail").addClass("form-control-error");
+                        }
+                        if(response.code == "NO_PASSWORD"){
+                            // 密码错误
+                            $("#form-login .title #pwd-login-error").text("密码错误");
+                            $("#form-login #LoginPassword").addClass("form-control-error");
+                        }
                     }else{
-                        var message = confirm("登录成功!");
-                        if(message==true){
                             var res = {
                                 id:response.result,
                                 password:password
@@ -114,11 +147,20 @@ $(document).ready(function(){
                             var userinfo = '{\"id\":{id},\"password\":{password}}'.format(res);
                             sessionStorage.setItem("userinfo",userinfo);
                             location.href="http://localhost:8080/Xinqing/home";
-                        }
                     }
                   });
         }else{
-            alert("请补全输入")
+            $("#form-login .title span").text("");
+            $("#form-login .form-control").removeClass("form-control-error");
+            // 表单不能有空
+            if(email == ""){
+                $("#form-login .title #email-login-error").text("请输入邮箱");
+                $("#form-login #LoginEmail").addClass("form-control-error");
+            }
+            if(password == ""){
+                $("#form-login .title #pwd-login-error").text("请输入密码");
+                $("#form-login #LoginPassword").addClass("form-control-error");
+            }
         }
     });
 
@@ -144,4 +186,5 @@ $(document).ready(function(){
         }
         return result;
     }
+
 })
