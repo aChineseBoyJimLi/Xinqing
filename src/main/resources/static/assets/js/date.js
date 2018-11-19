@@ -136,7 +136,7 @@ $(document).ready(function(){
             var settings = {
                 "async": false,
                 "crossDomain": true,
-                "url": "http://47.106.207.177:8080/Xinqing/getmood",
+                "url": "http://47.106.207.177/Xinqing/getmood",
                 "method": "POST",
                 "headers": {
                   "Content-Type": "application/json",
