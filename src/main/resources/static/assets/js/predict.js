@@ -23,7 +23,7 @@ window.onload = function(){
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://47.106.207.177:8080/Xinqing/read",
+        "url": "http://localhost:8080/Xinqing/read",
         "method": "POST",
         "headers": {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ $('#ok').click(function(){
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://47.106.207.177:8080/Xinqing/write",
+        "url": "http://localhost:8080/Xinqing/write",
         "method": "POST",
         "headers": {
           "Content-Type": "application/json",
