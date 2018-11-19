@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    /*******************************************************/
     $("body").css({
         "overflow-x":"hidden",
         "overflow-y":"hidden"
@@ -6,48 +7,55 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
     
     /*导航栏样式代码*/
-    $('#indexTwo').click(function(){
-        $("#index").parent().addClass('now');
-        $("#index").addClass('now-font');
-        $('.navbar-brand').show(200);
-        $('#main').animate({opacity:'1'},'fast');
-    });
-
     $('.navbar-brand').click(function(){
         $('.nav-item').removeClass('now');
         $('.nav-link').removeClass('now-font');
         $(this).hide(200);
     });
-
     //切换面板对导航栏的样式修改
-    var num = 3;
-    $('.owl-prev').click(function(){
-        num--;
-        getNav(num);
-        console.log('left');
+    var now = 0;
+    $('#indexTwo').click(function(){
+        $("#"+now).addClass('now-font');
+        $("#"+now).parent().addClass('now');
+        $('.navbar-brand').show(200);
+        $('#main').animate({opacity:'1'},'fast');
     });
+
+    $('.owl-prev').click(function(){
+        var id = $('.nav-link').filter('.now-font').attr('id');
+        id--;
+        if(id<0){
+            id=2;
+        }
+        now = id;
+        var link = $('.nav-link').filter('#'+id);
+        $('.nav-link').removeClass('now-font');
+        $('.nav-item').removeClass('now');
+        link.addClass('now-font');
+        link.parent().addClass('now');
+    })
 
     $('.owl-next').click(function(){
-        num++;
-        getNav(num);
-        console.log('right');
-    });
-
-    function getNav(count){
-        $('.nav-item').removeClass('now');
+        var id = $('.nav-link').filter('.now-font').attr('id');
+        id++;
+        if(id>2){
+            id=0;
+        }
+        now = id;
+        var link = $('.nav-link').filter('#'+id);
         $('.nav-link').removeClass('now-font');
-        if(count%3==1){
-            $('#index').parent().next().addClass('now');
-            $('#index').parent().next().children().addClass('now-font');
-        }
-        else if(count%3==2){
-            $('#index').parent().next().next().addClass('now');
-            $('#index').parent().next().next().children().addClass('now-font');
-        }else{
-            $('#index').parent().addClass('now');
-            $('#index').parent().children().addClass('now-font');
-        }
-    }
+        $('.nav-item').removeClass('now');
+        link.addClass('now-font');
+        link.parent().addClass('now');
+    })
+
+    $('.owl-next,.owl-prev').click(function(){
+        /*板块二恢复样式*/
+        $('.select-panel ul li a').removeClass('actived');
+        $("#dateNote").addClass('actived');
+        $('.show-panel').hide();
+        $('#Note').show();
+    });
 
     $('.navbar-brand').mouseenter(function(){
         $(this).addClass('now');
@@ -71,7 +79,7 @@ $(document).ready(function(){
             $('.show-panel').filter(selectId).show(200);
         }else{
             $('.show-panel').not("#Line").hide(200);
-            $('#Line').show(200);
+            $('#Line').show(200); 
             getLine();
         }
     });
@@ -85,7 +93,7 @@ $(document).ready(function(){
 function getLine(){
     option = {
         title: {
-            text: '心情曲线~'
+            text: ''
         },
         tooltip: {
             trigger: 'axis'
@@ -99,15 +107,10 @@ function getLine(){
             bottom: '3%',
             containLabel: true
         },
-        // toolbox: {
-        //     feature: {
-        //         saveAsImage: {}
-        //     }
-        // },
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: ['周一','周二','周三','周四','周五','周六','周日']
+            data: []
         },
         yAxis: {
             type: 'value',
@@ -117,43 +120,43 @@ function getLine(){
                 name:'恶心的',
                 type:'line',
                 // stack: '总量',
-                data:[8, 1, 10, 18, 5, 6, 1, 5]
+                data:[]
             },
             {
                 name:'开心的',
                 type:'line',
                 // stack: '总量',
-                data:[2, 4, 5, 7, 11, 2, 0, 0]
+                data:[]
             },
             {
                 name:'生气的',
                 type:'line',
-                stack: '总量',
-                data:[2, 3, 5, 0, 1, 4, 0, 3]
+                // stack: '总量',
+                data:[]
             },
             {
                 name:'一般般',
                 type:'line',
                 // stack: '总量',
-                data:[1, 0, 0, 2, 1, 3, 0, 2]
+                data:[]
             },
             {
                 name:'惊讶的',
                 type:'line',
                 // stack: '总量',
-                data:[0, 4, 1, 2, 0, 1, 2, 1]
+                data:[]
             },        
             {
                 name:'悲伤的',
                 type:'line',
                 // stack: '总量',
-                data:[0, 1, 1, 6, 0, 1, 3, 1]
+                data:[]
             },
             {
                 name:'害怕的',
                 type:'line',
                 // stack: '总量',
-                data:[1, 0, 1, 4, 0, 1, 0, 4]
+                data:[]
             }
     
         ]
@@ -161,6 +164,7 @@ function getLine(){
         var line = document.getElementById('line-map');
         var lineMap = echarts.init(line);
         lineMap.setOption(option);
+        RenderLines(lineMap);
 }
 
 function RenderNotesList(Notes){
@@ -205,9 +209,98 @@ function SwitchMoodImg(mood){
             temp = "fear.png";
             break;
         }
+        default:{
+            temp = "none.png";
+            break;
+        }
         
     }
     return "assets/img/faceEmotion/"+temp;
+}
+
+
+function RenderLines(line){
+    //声明数组
+    var DAYS = [];
+    var DISGUST = [];
+    var JOY = [];
+    var ANGER = [];
+    var NOEMO = [];
+    var SURPRISE = [];
+    var SADNESS = [];
+    var FEAR = [];
+    /**********************************/
+    var temp = sessionStorage.getItem('moods');
+    var moods = JSON.parse(temp);
+    var dd = new Date(parseInt(new Date().getFullYear()),parseInt(new Date().getMonth()+1), 0);   //Wed Mar 31 00:00:00 UTC+0800 2010  
+    var daysCount = dd.getDate();       //本月天数  
+    for(i=1;i<=daysCount;i++){
+        DAYS.push(i);
+    }
+    moods.forEach(element => {
+        DISGUST.push(element.result.disgust);
+        JOY.push(element.result.joy);
+        ANGER.push(element.result.anger);
+        NOEMO.push(element.result.noemo);
+        SURPRISE.push(element.result.surprise);
+        SADNESS.push(element.result.sadness);
+        FEAR.push(element.result.fear);
+    });
+    line.setOption({
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: DAYS
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [
+            {
+                name:'恶心的',
+                type:'line',
+                // stack: '总量',
+                data:DISGUST
+            },
+            {
+                name:'开心的',
+                type:'line',
+                // stack: '总量',
+                data:JOY
+            },
+            {
+                name:'生气的',
+                type:'line',
+                // stack: '总量',
+                data:ANGER
+            },
+            {
+                name:'一般般',
+                type:'line',
+                // stack: '总量',
+                data:NOEMO
+            },
+            {
+                name:'惊讶的',
+                type:'line',
+                // stack: '总量',
+                data:SURPRISE
+            },        
+            {
+                name:'悲伤的',
+                type:'line',
+                // stack: '总量',
+                data:SADNESS
+            },
+            {
+                name:'害怕的',
+                type:'line',
+                // stack: '总量',
+                data:FEAR
+            }
+    
+        ]
+    });
 }
 
 String.prototype.format = function(args) {
