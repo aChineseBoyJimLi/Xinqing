@@ -49,11 +49,11 @@
                             <h2>创建一个账号</h2>
                             <form role="form">
                                 <div id="form-sign-in">
-                                    <label class="title" style="margin-right:300px">昵称</label>
+                                    <label class="title" style="margin-right:300px">昵称 <span id="name-error"></span></label>
                                     <input type="text" class="form-control noBlue" placeholder="请输入您的昵称" id="Name"/>
-                                    <label class="title" style="margin-right:300px">邮箱</label>
+                                    <label class="title" style="margin-right:300px">邮箱 <span id="email-error"></span></label>
                                     <input type="email" class="form-control noBlue" placeholder="请输入您的邮箱" id="Email"/>
-                                    <label class="title" style="margin-right:300px">密码</label>
+                                    <label class="title" style="margin-right:300px">密码 <span id="pwd-error"></span></label>
                                     <input type="password" class="form-control noBlue" placeholder="请输入您的密码" id="Password"/>
                                     <input type="password" class="form-control noBlue" placeholder="请确认您的密码" id="EnsurePassword"/>
                                 </div>
@@ -63,15 +63,15 @@
                         <!-- 登录 -->
                         <div class="col-4 btnLogin">
                             <img src="assets/img/milk_cake.png" class="rigth-img">
-                            <span style="font-weight:400;cursor: pointer;" id="changePanel">Click me</span>
+                            <span style="font-weight:400;cursor: pointer;" id="changePanel">点击登录</span>
                         </div>
                         <div class="col-4 hidden login">
                             <h2>登录</h2>
                             <form role="form" id="form-login">
                                 <div>
-                                    <div class="title" style="margin-right:210px">邮箱</div>
+                                    <div class="title" style="margin-right:210px">邮箱 <span id="email-login-error"></span></div>
                                     <input type="email" class="form-control noBlue" placeholder="请输入您的邮箱" id="LoginEmail"/>
-                                    <label class="title" style="margin-right:210px">密码</label>
+                                    <label class="title" style="margin-right:210px">密码 <span id="pwd-login-error"></span></label>
                                     <input type="password" class="form-control noBlue" placeholder="请输入您的密码" id="LoginPassword"/>
                                 </div>
                                     <button type="button" id="signUp" class="btn btn-theme noBlue">登录</button>
@@ -81,79 +81,13 @@
                     <br/>
                 </div>
             </div>
-            <!-- Modal -->
-            <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                            <div class="modal-body">
-                                你的邮箱不正确
-                            </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                    </div>
-                </div>
-            </div> -->
-
         </div>
     </div>
 
 
     <script src="lib/jquery.min.js"></script>
-    <script src="lib/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
     <script src="http://downloads.mailchimp.com/js/jquery.form-n-validate.js"></script>
+    <script src="lib/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
     <script src="assets/js/login.js"></script>
-    <!-- <script>
-        
-$(document).ready( function () {
-    $('#wrapper').height($(document).height());
-    // I only have one form on the page but you can be more specific if need be.
-    var $form = $('form');
-
-    if ( $form.length > 0 ) {
-        $('form input[type="submit"]').bind('click', function ( event ) {
-            if ( event ) event.preventDefault();
-            // validate_input() is a validation function I wrote, you'll have to substitute this with your own.
-            if ( $form.validate() ) { register($form); }
-        });
-    }
-});
-
-function appendResult(userText , className, iconClass){
-  var resultHTML = "<div class='stretchLeft result "+ className + "'>" + userText + " <span class='fa fa-" + iconClass + "'></span>" + "</div>";
-  $('body').append(resultHTML);
-  $('.result').delay(10000).fadeOut('1000');
-}
-
-
-function register($form) {
-    $.ajax({
-        type: $form.attr('method'),
-        url: $form.attr('action'),
-        data: $form.serialize(),
-        cache       : false,
-        dataType    : 'json',
-        contentType: "application/json; charset=utf-8",
-        error       : function(err) { alert("Could not connect to the registration server. Please try again later."); },
-        success     : function(data) {
-            if (data.result != "success") {
-                appendResult('Wrong Email Or You Are Already Registered, Try Again', 'error', 'exclamation');
-            } else {
-                // It worked, carry on...
-                appendResult('Successful, Check Your Email For Confirmation ', 'success', 'check');
-            }
-        }
-    });
-}
-    </script> -->
-
 </body>
-
 </html>
