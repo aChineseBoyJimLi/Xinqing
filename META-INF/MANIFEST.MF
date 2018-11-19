@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Created-By: Apache Maven 3.3.9
+Built-By: Mr.Li
+Build-Jdk: 10.0.2
+Implementation-Title: xinqing
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/xinqing
+Main-Class: org.springframework.boot.loader.WarLauncher
+Start-Class: com.xinqing.XinqingApplication
+Spring-Boot-Version: 2.1.0.RELEASE
+Spring-Boot-Classes: WEB-INF/classes/
+Spring-Boot-Lib: WEB-INF/lib/
+
