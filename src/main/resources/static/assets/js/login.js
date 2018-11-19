@@ -53,7 +53,7 @@ $(document).ready(function(){
                 var settings = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "http://47.106.207.177:8080/Xinqing/register",
+                    "url": "http://localhost:8080/Xinqing/register",
                     "method": "POST",
                     "headers": {
                       "Content-Type": "application/json",
@@ -77,7 +77,7 @@ $(document).ready(function(){
                             };
                             var userinfo = '{\"id\":{id},\"password\":{password}}'.format(res);
                             sessionStorage.setItem("userinfo",userinfo);
-                            location.href="http://47.106.207.177:8080/Xinqing/home";
+                            location.href="http://localhost:8080/Xinqing/home";
                         }
                     }
                     });
@@ -116,7 +116,7 @@ $(document).ready(function(){
                 var settings = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "http://47.106.207.177:8080/Xinqing/login",
+                    "url": "http://localhost:8080/Xinqing/login",
                     "method": "POST",
                     "headers": {
                       "Content-Type": "application/json",
@@ -146,7 +146,7 @@ $(document).ready(function(){
                             };
                             var userinfo = '{\"id\":{id},\"password\":{password}}'.format(res);
                             sessionStorage.setItem("userinfo",userinfo);
-                            location.href="http://47.106.207.177:8080/Xinqing/home";
+                            location.href="http://localhost:8080/Xinqing/home";
                     }
                   });
         }else{
