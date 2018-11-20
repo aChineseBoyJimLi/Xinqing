@@ -175,7 +175,14 @@ function RenderNotesList(Notes){
         '<div class="Notecontent">'+'<span class="message">'+element.content+'</span>'+
         '&nbsp;&nbsp;<img src="'+SwitchMoodImg(element.mood)+'" style="margin:3px auto;display: inline;max-width: 30px;"></div></div>';
         $('#Note').append(str);
-    });  
+    });
+    // Array.prototype.forEach.call(Notes, element => {
+    //     var str = '<div class="card" id="noteOne" v-for="note in result">'+
+    //         '<div class="title">'+'<span class="timestamp">'+element.time+'</span></div>'+
+    //         '<div class="Notecontent">'+'<span class="message">'+element.content+'</span>'+
+    //         '&nbsp;&nbsp;<img src="'+SwitchMoodImg(element.mood)+'" style="margin:3px auto;display: inline;max-width: 30px;"></div></div>';
+    //     $('#Note').append(str);
+    // });
 }
 
 function SwitchMoodImg(mood){
@@ -231,7 +238,7 @@ function RenderLines(line){
     var FEAR = [];
     /**********************************/
     var temp = sessionStorage.getItem('moods');
-    var moods = JSON.parse(temp);
+    moods = JSON.parse(temp);
     var dd = new Date(parseInt(new Date().getFullYear()),parseInt(new Date().getMonth()+1), 0);   //Wed Mar 31 00:00:00 UTC+0800 2010  
     var daysCount = dd.getDate();       //本月天数  
     for(i=1;i<=daysCount;i++){
