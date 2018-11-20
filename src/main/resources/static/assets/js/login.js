@@ -43,7 +43,8 @@ $(document).ready(function(){
                 $("#form-sign-in .title #pwd-error").text("两次密码不一致，请重新输入");
                 $("#form-sign-in #Password").addClass("form-control-error");
                 $("#form-sign-in #EnsurePassword").addClass("form-control-error");
-            }else{
+            }
+            else{
                 var input = {
                     name:name,
                     password:password,
@@ -76,15 +77,11 @@ $(document).ready(function(){
                             var userinfo = '{\"id\":{id},\"password\":{password}}'.format(res);
                             sessionStorage.setItem("userinfo",userinfo);
                             location.href="http://localhost:8080/Xinqing/home";
-<<<<<<< Updated upstream
                         }
-=======
-
->>>>>>> Stashed changes
-                    }
                     });
+                 }
             }
-        }else{
+        else{
             $("#form-sign-in .title span").text("");
             $("#form-sign-in .form-control").removeClass("form-control-error");
             // 存在空表单
@@ -142,7 +139,6 @@ $(document).ready(function(){
                             $("#form-login #LoginPassword").addClass("form-control-error");
                         }
                     }else{
-<<<<<<< Updated upstream
                             var res = {
                                 id:response.result,
                                 password:password
@@ -150,7 +146,6 @@ $(document).ready(function(){
                             var userinfo = '{\"id\":{id},\"password\":{password}}'.format(res);
                             sessionStorage.setItem("userinfo",userinfo);
                             location.href="http://localhost:8080/Xinqing/home";
-=======
                         var res = {
                             id:response.result,
                             password:password
@@ -158,7 +153,6 @@ $(document).ready(function(){
                         var userinfo = '{\"id\":{id},\"password\":{password}}'.format(res);
                         sessionStorage.setItem("userinfo",userinfo);
                         location.href="http://localhost:8080/Xinqing/home";
->>>>>>> Stashed changes
                     }
                   });
         }else{
