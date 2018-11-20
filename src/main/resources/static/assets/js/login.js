@@ -69,8 +69,6 @@ $(document).ready(function(){
                         $("#form-sign-in .title #email-error").text("此账号已注册");
                         $("#form-sign-in #Email").addClass("form-control-error");
                     }else{
-                        var message = confirm("注册成功!");
-                        if(message==true){
                             var res = {
                                 id:response.result,
                                 password:password
@@ -78,7 +76,11 @@ $(document).ready(function(){
                             var userinfo = '{\"id\":{id},\"password\":{password}}'.format(res);
                             sessionStorage.setItem("userinfo",userinfo);
                             location.href="http://localhost:8080/Xinqing/home";
+<<<<<<< Updated upstream
                         }
+=======
+
+>>>>>>> Stashed changes
                     }
                     });
             }
@@ -140,6 +142,7 @@ $(document).ready(function(){
                             $("#form-login #LoginPassword").addClass("form-control-error");
                         }
                     }else{
+<<<<<<< Updated upstream
                             var res = {
                                 id:response.result,
                                 password:password
@@ -147,6 +150,15 @@ $(document).ready(function(){
                             var userinfo = '{\"id\":{id},\"password\":{password}}'.format(res);
                             sessionStorage.setItem("userinfo",userinfo);
                             location.href="http://localhost:8080/Xinqing/home";
+=======
+                        var res = {
+                            id:response.result,
+                            password:password
+                        };
+                        var userinfo = '{\"id\":{id},\"password\":{password}}'.format(res);
+                        sessionStorage.setItem("userinfo",userinfo);
+                        location.href="http://localhost:8080/Xinqing/home";
+>>>>>>> Stashed changes
                     }
                   });
         }else{
