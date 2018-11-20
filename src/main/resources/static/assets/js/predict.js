@@ -14,12 +14,10 @@ var select = 0      //当前采用的表情标签值
 var labels = ['恶心的', '开心的', '生气的', '一般般', '惊讶的', '悲伤的', '害怕的']
 var flag = false;
 var result;
-var userinfo = sessionStorage.getItem("userinfo");
-// var modelrunning = true
+
 var textarea_activated = false
 /*加载模型*/
 window.onload = function(){
-    console.log(userinfo);
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -33,8 +31,10 @@ window.onload = function(){
       }
       
       $.ajax(settings).done(function (response) {
-        console.log(response);
-        RenderNotesList(response.result);
+        //页面加载完毕 读取数据
+        RenderNotesList(response.result);   //渲染随笔列表
+        RenderMoodMonth()  //渲染心情日历
+        GetMonthData();    //获取当月心情曲线数据
       });
 
     /**********************************/
@@ -81,7 +81,7 @@ $('textarea').click(function(){
 $('*').on("keyup","textarea",function(){
     var str = $(this).val();
     var length = str.length;
-    var NewStr = length+"/50"; 
+    var NewStr = length+"/100"; 
     $(this).next().text(NewStr);
 })
 
@@ -106,9 +106,8 @@ $('#ready').click(function(){
     }
 })
 
-/*预测面板事件*/
+//点击好的
 $('#ok').click(function(){
-    console.log(userinfo);
     var note = $('textarea').val();
     var date = getNowFormatDate();
     var input = {
@@ -131,8 +130,9 @@ $('#ok').click(function(){
       }
       
       $.ajax(settings).done(function (response) {
-        console.log(response);
-        RenderNotesList(response.result);
+        RenderNotesList(response.result);   //重新渲染随笔列表
+        RenderMoodMonth();   //重新渲染心情日历
+        GetMonthData();     //重新获取当月心情曲线数据
       });
 
     select = 0
@@ -140,9 +140,11 @@ $('#ok').click(function(){
     $('#ready').show(100);
     result_Panel.hide(100);
     $('textarea').removeAttr("disabled");
+    $('textarea').val("");
     $('#face').attr('src',"assets/img/faceEmotion/normal.png");
 })
 
+//点击再试一次
 $('#try-again').click(function(){
     select++;
     if(select>6){
