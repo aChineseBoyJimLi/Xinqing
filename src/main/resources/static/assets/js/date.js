@@ -1,47 +1,49 @@
-var MonthMoods = [];
 var IsMood = 0;
+var MonthMoods = new Array();  //用于存放心情数组
+var mydate = new Date(); 
 var userinfo = sessionStorage.getItem("userinfo");
-$(document).ready(function(){ 
-    $('.owl-next,.owl-prev').click(function(){
-        //页面加载初始化年月
-        var mydate = new Date();
+
+        $(document).ready(function(){
+            //日历上一月
+            $(".f-btn-jian ").click(function(){
+                var mm = parseInt($(".f-month").html());
+                var yy = parseInt($(".f-year").html());
+                if( mm == 1){//返回12月
+                    $(".f-year").html(yy-1);
+                    $(".f-month").html(12);
+                    showDate(yy-1,12);
+                }else{//上一月
+                    $(".f-month").html(mm-1);
+                    showDate(yy,mm-1);
+                }
+            })
+            //日历下一月
+            $(".f-btn-jia").click(function(){
+                var mm = parseInt($(".f-month").html());
+                var yy = parseInt($(".f-year").html());
+                if( mm == 12){//返回12月
+                    $(".f-year").html(yy+1);
+                    $(".f-month").html(1);
+                    showDate(yy+1,1);
+                }else{//上一月
+                    $(".f-month").html(mm+1);
+                    showDate(yy,mm+1);
+                }
+            })
+            //返回本月
+            $(".f-btn-fhby").click(function(){
+                RenderMoodMonth();
+            })
+        })
+
+        function RenderMoodMonth(){
+        //页面加载当前年月
         $(".f-year").html( mydate.getFullYear() );
         $(".f-month").html( mydate.getMonth()+1 );
         showDate(mydate.getFullYear(),mydate.getMonth()+1);
-        sessionStorage.setItem('moods', JSON.stringify(MonthMoods));
-        MonthMoods = [];
-        //日历上一月
-        $(".f-btn-jian ").click(function(){
-            var mm = parseInt($(".f-month").html());
-            var yy = parseInt($(".f-year").html());
-            if( mm == 1){//返回12月
-                $(".f-year").html(yy-1);
-                $(".f-month").html(12);
-                showDate(yy-1,12);
-            }else{//上一月
-                $(".f-month").html(mm-1);
-                showDate(yy,mm-1);
-            }
-        })
-        //日历下一月
-        $(".f-btn-jia").click(function(){
-            var mm = parseInt($(".f-month").html());
-            var yy = parseInt($(".f-year").html());
-            if( mm == 12){//返回12月
-                $(".f-year").html(yy+1);
-                $(".f-month").html(1);
-                showDate(yy+1,1);
-            }else{//上一月
-                $(".f-month").html(mm+1);
-                showDate(yy,mm+1);
-            }
-        })
-        //返回本月
-        $(".f-btn-fhby").click(function(){
-            $(".f-year").html( mydate.getFullYear() );
-            $(".f-month").html( mydate.getMonth()+1 );
-            showDate(mydate.getFullYear(),mydate.getMonth()+1);
-        })
+        // sessionStorage.setItem('moods', JSON.stringify(MonthMoods));
+        
+        }
         
         //读取年月写入日历  重点算法!!!!!!!!!!!
         function showDate(yyyy,mm){
@@ -132,6 +134,46 @@ $(document).ready(function(){
             });
         }
 
+        function SwitchMoodImg(mood){
+            var temp;
+            switch(mood){
+                case "DISGUST":{
+                    temp = "disappointed.png";
+                    break;
+                }
+                case "JOY":{
+                    temp = "happy.png";
+                    break;
+                }
+                case "ANGER":{
+                    temp = "angry.png";
+                    break;
+                }
+                case "NOEMO":{
+                    temp = "normal.png";
+                    break;
+                }
+                case "SURPRISE":{
+                    temp = "surprise.png";
+                    break;
+                }
+                case "SADNESS":{
+                    temp = "sad.png";
+                    break;
+                }
+                case "FEAR":{
+                    temp = "fear.png";
+                    break;
+                }
+                default:{
+                    temp = "none.png";
+                    break;
+                }
+                
+            }
+            return "assets/img/faceEmotion/"+temp;
+        }
+
         function getDayMood(y,m,d){
             var settings = {
                 "async": false,
@@ -152,7 +194,9 @@ $(document).ready(function(){
                 IsMood = response.result.main_num;
               });
               return Moods; 
-        }
-    })             
-})
+        }          
+
+        // function RenderDayMoodData(){
+
+        // }
 
